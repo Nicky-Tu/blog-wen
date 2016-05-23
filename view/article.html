@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$title}</title>
+    <link rel="stylesheet" href="../view/css/article.css" type="text/css">
+    <script type="text/javascript" src="../js/jquery-2.2.3.js"></script>
+    <script type="text/javascript" src="../js/pack_obj.js"></script>
+</head>
+<body>
+{if !$content}
+    <p>{$error}</p>
+{else}
+    <div id="div1">
+        <ul>
+            <li style="width: 100%;float:left;margin-bottom: 10px;position: relative;">
+                <div id="div_image" style="float: left;">
+                <img  src="../view/image/1.jpg"/>
+                </div>
+                <div id="div_title" style="float: left;width: auto;margin-top: 10px;">
+                    <strong>{$title}</strong>
+                    <br/>
+                    <label id="label_author">{$author}</label><label id="label_time">{$create_time}</label>
+                </div>
+                <hr style="width: 100%;position: absolute;bottom:-5px;left:20px;"/>
+            </li>
+            <li>
+                <div id="div_content">
+                    {$content}
+                </div>
+            </li>
+            <li>
+                <div  id="click"  style="display: block" onclick="show()">点击评论...</div>
+                <div id="comment" style="display: none">
+                    <label>评论:</label><br/>
+                    <input  id="article_id" type="hidden" name="article_id" value="{$article_id}"/>
+                    <textarea  id="textarea" cols="20" rows="4" name="comment" placeholder="简单说几句吧。"></textarea><br/>
+                    <button id="uploadcomment" type="button" onclick="upload()">发表</button>
+                </div>
+            </li>
+
+            <li id="commentcontent">
+                {if $comment}
+                {foreach $comment as $v=>$per}
+                <ul style="margin-top: 15px" id="{$v}">
+                    <li>
+                        <label>{$per['custom_id']}</label>
+                        <label>{$per['comment_time']}</label>
+                    </li>
+                    <li><hr/></li>
+                    <li>
+                        <div>{$per['content']}</div>
+                        <div>
+                            <a style="display: block" class="comment{$v}" href="javascript:" onclick="showtextarea({$v},null)">回复</a>
+                        </div>
+                        <div class="commentreply{$v}" style="display: none" >
+                            <textarea id="reply{$v}" rows="3" placeholder="回复内容："></textarea>
+                            <input type="hidden" id="article_commenter{$v}" value="{$per['custom_id']}"/>
+                            <button  type="button" onclick="insert_reply({$v},null)">发表</button>
+                        </div>
+                    </li>
+                    <ul id="comment_reply{$v}" style="margin-top: 15px">
+                    {if $per['reply']}
+
+                            {foreach $per['reply'] as $i=>$reply}
+                            <li style="margin-top: 15px">
+                                {$reply['replyer']} 回复 {$reply['bereplyer']}:{$reply['reply_content']}
+                                <a  style="display: block" class="relpy{$i}" href="javascript:void(0)" onclick="showtextarea({$v},{$i})">回复</a>
+                                <div class="reply{$v}-{$i}" style="display: none" >
+                                    <textarea id="reply{$v}-{$i}" rows="3" placeholder="回复内容："></textarea>
+                                    <input type="hidden" id="replyer_{$i}" value="{$reply['replyer']}"/>
+                                    <button  type="button" onclick="insert_reply({$v},{$i})">发表</button>
+                                </div>
+                            </li>
+                            {/foreach}
+                    {/if}
+                    </ul>
+                </ul>
+                {/foreach}
+                {/if}
+            </li>
+        </ul>
+    </div>
+
+{/if}
+</body>
+</html>

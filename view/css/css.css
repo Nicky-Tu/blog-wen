@@ -1,0 +1,37 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+}
+ul{
+    list-style-type: none;
+    padding-left: 0px;
+}
+li{
+    margin: 15px;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px Gainsboro;
+}
+a{
+    color: cadetblue;
+    text-decoration:none;
+}
+#label_author{
+    float:left;
+    font-size: 5px;
+    margin-top: 8px;
+}
+#label_time{
+    float:right;
+    font-size:5px;
+    margin-top: 8px;
+}
+hr{
+    margin-top: 0;
+}
+#content{
+    font-size: smaller;
+}
+#article_image{
+    height:20px;
+    width:20px;
+}

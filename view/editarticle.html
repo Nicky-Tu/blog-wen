@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../js/jquery-2.2.3.js"></script>
+    <script type="text/javascript" src="../js/files_upload.js"></script>
+    <script type="text/javascript" src="../js/pack_obj.js"></script>
+    <script type="text/javascript" src="../js/ajaxfileupload.js"></script>
+    <style type="text/css">
+        .add-media ul{visibility:hidden;list-style-type:none}
+        .add-media:hover > ul{margin-left:0;visibility:visible;}
+        .musical:hover{border:1px solid  honeydew ;border-radius:5px}
+        .picture:hover{border:1px solid honeydew !important;border-radius:5px}
+        .video:hover{border:1px solid  honeydew;border-radius:5px}
+    </style>
+</head>
+<body>
+<form id="form" method="post" enctype="multipart/form-data" action="../controller/ArticleController.php?act=up_article">
+    题目：<input id="inputTitle" style="width:380px;" type="text" name="title" value=""/><br/>
+    作者：<input type="text" name="author" value=""><br/>
+    <!--文件上传控件-->
+    <!--<a  style="display:inline-block;overflow:hidden;position:relative" href="javascript:;">-->
+        <!--<input id="fileToUpload" onchange="uploadFile()" style="opacity: 0;left:0;top:0;position:absolute" type="file" name="upload_file" value="">上传附件</a>-->
+
+            <!--<br/>-->
+    <!--<div id="showProgress" style="display:none">-->
+        <!--&lt;!&ndash;上传文件进度条显示&ndash;&gt;-->
+        <!--<progress id="progressNumber" max="" value=""></progress>-->
+        <!--<span id="ProgressNumber1"></span>-->
+    <!--</div>-->
+
+    <div>
+        <div style="height:34px;width:380px;border:1px solid;background:grey">
+        <span class="picture" style="float:left;display:block;height:32px;width:32px; background: url(image/picture32px.ico) no-repeat 0 0"></span>
+        <span class="video" style="float:left;display:block;height:32px;width:32px; background: url(image/video32px.ico) no-repeat 0 0"></span>
+        <span class="musical" style="float:left;display:block;height:32px;width:32px; background: url(image/musical32px.ico) no-repeat 0 0"></span>
+        </div>
+    <div id="editableArea" style="margin-top:0;height:auto;width:380px;border:1px solid" contenteditable="true" title="可编辑区">
+        <!--<img height="100px" width="100px" src="../image/S60408-090446.jpg"/>-->
+        <!--<video id="video" style="height:150px;width:200px" preload="auto" src="../videos/V60429-113115.mp4" controls="controls">浏览器不支持视屏播放</video>-->
+    </div>
+    </div>
+        <!--<div style="height: 50px;width: 50px;">-->
+        <!--<nav>-->
+            <!--<ul>-->
+                <!--<li>-->
+                    <!--<div class="add-media" >-->
+                        <!--<img  style="height:50px;width:50px;" src="image/add.ico"/>-->
+                        <!--<ul>-->
+                            <!--<li><img style="height:50px;width:50px;" src="image/picture.ico"></li>-->
+                            <!--<li><img style="height:50px;width:50px;" src="image/video.ico"></li>-->
+                        <!--</ul>-->
+                    <!--</div>-->
+                <!--</li>-->
+            <!--</ul>-->
+        <!--</nav>-->
+    <!--</div>-->
+    <input id="submit" type="submit" name="submit" value="上传"/>
+</form>
+<form id="uploadFile" enctype='multipart/form-data' action="" style="display:none" method="post">
+    <input id="inputFile" name="file" type="file" accept=""/>
+</form>
+<script type="text/javascript">
+$(document).ready(
+        /**
+         * 点击添加图片，打开图片选择文件对话框，ajax获取文件在服务器上的存储路径，并在编辑框中添加显示该图片。
+         */
+        function(){
+            $('.picture').click(function(){
+                //点击事件，打开文件选择对话框
+                $('#inputFile').attr('accept','image/*');
+                $('#inputFile').on(
+                        'change',function(){
+                            alert('inputFile change');
+                            $.ajaxFileUpload({
+                                url: '../controller/ArticleController.php',
+                                type: 'post',
+                                fileElementId: 'inputFile',
+                                dataType: 'text',
+                                data: {'act': 'save_image'},
+                                success: function (data) {
+                                    $('#editableArea').append(data);
+                                }
+                            });
+                        }
+                );
+                $('#inputFile').trigger('click');
+            });
+
+
+            $('.video').click(function(){
+                //点击事件，打开文件选择对话框
+                $('#inputFile').attr('accept','video/mp4');
+                $('#inputFile').on(
+                        'change',function(){
+                            alert('inputFile change');
+                            $.ajaxFileUpload({
+                                url: '../controller/ArticleController.php',
+                                type: 'post',
+                                fileElementId: 'inputFile',
+                                dataType: 'text',
+                                data: {'act': 'save_video'},
+                                success: function (data) {
+                                    $('#editableArea').append(data);
+                                }
+                            });
+                        }
+                );
+                $('#inputFile').trigger('click');
+            });
+        });
+</script>
+</body>
+</html>

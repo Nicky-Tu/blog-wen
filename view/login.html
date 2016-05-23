@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登陆</title>
+</head>
+<body name="body">
+<script src="../js/pack_obj.js"></script>
+<script src="../../../jqurey/jquery-2.2.3.js"></script>
+<div align="center">
+    <form method="post" action="../controller/Usercontroller.php">
+        <table>
+            <tr>
+                <td>用户名：</td>
+                <td><input type="text" id="username" name="username" value="" placeholder="用户名" onblur="User.checkuser()"/></td>
+                <td><span  style="color:red" id="span_username"></span></td>
+
+            </tr>
+            <tr>
+                <td>密码：</td>
+                <td><input type="text" id="password" name='password' value="" placeholder="密码"/></td>
+                <td><span id="span_password"></span></td>
+            </tr>
+            <tr>
+                <td>验证码：</td>
+                <td><input type="text" id="yanzhengma" name='yanzhengma' value="" placeholder="验证码"/></td>
+                <td><img id="checkimage" src="../libs/code_num.php" onclick="refresh()"/>点击图片刷新</td>
+            </tr>
+            <tr>
+                <td><input type="submit" id="login" value="登陆"/></td>
+                <td align="right"><a  href="login.html">忘记密码？</a>
+                </td>
+            </tr>
+        </table>
+        <input type="hidden" name="act" value="login"/>
+    </form>
+
+</div>
+<script type="text/javascript">
+    function refresh(){
+        var check_code = document.getElementById('checkimage');
+        check_code.src = '../libs/code_num.php';
+    }
+</script>
+</body>
+</html>

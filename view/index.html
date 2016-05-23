@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>岁月静好，此生悠然</title>
+    <link rel="stylesheet" href="view/css/css.css" type="text/css">
+</head>
+<body>
+<ul>
+{if $article}
+    {foreach $article as $v=>$ar}
+        <li>
+        <a  href="controller/ArticleController.php?act=show_article&id={$ar['article_id']}">
+        <div>
+            <div>
+                <strong>{$ar['title']}</strong><br/>
+                <label id="label_author">作者：{$ar['author']}</label>
+                <label id="label_time">创建时间：{$ar['create_time']}</label><br/>
+            </div>
+            <hr/>
+            <div id="content">{$ar['describle']}</div>
+        </div>
+        </a>
+        <br/>
+        </li>
+    {/foreach}
+
+{/if}
+</ul>
+</body>
+</html>
